@@ -1,16 +1,17 @@
 # flutter_study
 
-A new Flutter project.
+> 记录flutter学习过程中的例子
 
-## Getting Started
+## 1.带动画的tabbar案例
 
-This project is a starting point for a Flutter application.
+代码见分支 1-tabbar
 
-A few resources to get you started if this is your first Flutter project:
+**效果**
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![带动画的tabbar案例gif图](https://s1.ax1x.com/2020/04/24/J0j9XD.gif)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+学习自B站up主 => 马友发 
+
+[【无聊的编码】Flutter如何制作带动画效果的TabBar](https://www.bilibili.com/video/BV1jJ411w7xs)
+
+在这里感谢马老师的教程
