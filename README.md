@@ -10,7 +10,7 @@
 
 ![带动画的tabbar案例gif图](https://s1.ax1x.com/2020/04/24/J0j9XD.gif)
 
-学习自B站up主 => 马友发 
+学习自B站up主 => [马友发](https://space.bilibili.com/283403747) 
 
 [【无聊的编码】Flutter如何制作带动画效果的TabBar](https://www.bilibili.com/video/BV1jJ411w7xs)
 
@@ -18,7 +18,7 @@
 
 ## 2.知乎样式布局设计
 
-代码见分支 1-zhihu
+代码见分支 2-zhihu
 
 **效果**
 
