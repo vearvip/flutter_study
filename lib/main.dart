@@ -36,7 +36,7 @@ class Home extends StatelessWidget {
       children: <Widget>[
         Positioned(
           top: 0,
-          height: 100,
+          // height: 100,
           width: screenWidth,
           child: Container(
             decoration: BoxDecoration(color: Colors.pinkAccent),
@@ -95,42 +95,45 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-            flex: 2,
-            child: Icon(
-              Icons.search,
-              size: 30,
-              color: Colors.white,
-            )),
-        Expanded(
-            flex: 8,
-            child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 60),
-                child: TabBar(
-                    indicatorColor: Colors.white,
-                    labelStyle: TextStyle(color: Colors.white, fontSize: 20),
-                    unselectedLabelStyle:
-                        TextStyle(color: Colors.grey[700], fontSize: 20),
-                    controller: _controller,
-                    tabs: <Widget>[Text('关注'), Text('推荐')]))),
-        Expanded(
-            flex: 2,
-            child: Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 20,
-                ),
-                Icon(
-                  Icons.live_tv,
-                  size: 30,
-                  color: Colors.white,
-                )
-              ],
-            )),
-      ],
+    return SafeArea(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[ 
+          Expanded(
+              flex: 2,
+              child: Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.white,
+              )),
+          Expanded(
+              flex: 8,
+              child: Container(
+                height: 50,
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: TabBar(
+                      indicatorColor: Colors.white,
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 20),
+                      unselectedLabelStyle:
+                          TextStyle(color: Colors.grey[700], fontSize: 20),
+                      controller: _controller,
+                      tabs: <Widget>[Text('关注'), Text('推荐')]))),
+          Expanded(
+              flex: 2,
+              child: Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Icon(
+                    Icons.live_tv,
+                    size: 30,
+                    color: Colors.white,
+                  )
+                ],
+              )),
+        ],
+      )
     );
   }
 }
