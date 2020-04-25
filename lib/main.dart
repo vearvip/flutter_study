@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(App());
+}
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
+  const App({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '抖嘤',
       home: Scaffold(
         body: Container(
-            decoration: BoxDecoration(color: Colors.yellowAccent),
-            child: Home()),
+          decoration: BoxDecoration(color: Colors.grey[800]),
+          child: Home()
+        ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
-            height: 100,
-            decoration: BoxDecoration(color: Colors.blueAccent),
+            height: 65,
+            // decoration: BoxDecoration(color: Colors.pink[200]),
+            decoration: BoxDecoration(color: Colors.black),
             child: BottomBar(),
           ),
         ),
@@ -25,41 +29,67 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
 
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     return Stack(
       children: <Widget>[
         Positioned(
           top: 0,
           // height: 100,
           width: screenWidth,
-          child: Container(
-            decoration: BoxDecoration(color: Colors.pinkAccent),
-            child: TopTab(),
-          ),
+          child: SafeArea(
+              child: Container(
+            height: 60,
+            // decoration: BoxDecoration(color: Colors.blue),
+            decoration: BoxDecoration(color: Colors.black),
+            child: TopTabBar(),
+          )),
         ),
         Positioned(
           bottom: 0,
           width: 0.70 * screenWidth,
           height: 150,
           child: Container(
-            decoration: BoxDecoration(color: Colors.redAccent),
-            child: BottomContent(),
+            // decoration: BoxDecoration(color: Colors.blueGrey),
+            child: IntroduceContent(),
           ),
         ),
         Positioned(
           right: 0,
-          top: 0.37 * screenHeight,
+          top: 0.39 * screenHeight,
           width: 0.25 * screenWidth,
-          height: 0.3 * screenHeight,
+          height: 0.4 * screenHeight,
           child: Container(
-            decoration: BoxDecoration(color: Colors.orangeAccent),
-              child: getButtonList(),
+            // decoration: BoxDecoration(color: Colors.deepOrangeAccent[400]),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                getAvatarButton(),
+                IconText(
+                  icon: Icons.favorite,
+                  text: '点赞',
+                ),
+                IconText(
+                  icon: Icons.chat,
+                  text: '回复',
+                ),
+                IconText(
+                  icon: Icons.reply,
+                  text: '分享',
+                )
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -68,7 +98,8 @@ class Home extends StatelessWidget {
           width: 0.25 * screenWidth,
           height: 0.25 * screenWidth,
           child: Container(
-            decoration: BoxDecoration(color: Colors.greenAccent),
+            // decoration: BoxDecoration(color: Colors.deepOrangeAccent[200]),
+            // decoration: BoxDecoration(color: Colors.greenAccent),
             child: RotateAlbum(),
           ),
         )
@@ -77,28 +108,51 @@ class Home extends StatelessWidget {
   }
 }
 
-class TopTab extends StatefulWidget {
-  TopTab({Key key}) : super(key: key);
+class TopTabBar extends StatefulWidget {
+  TopTabBar({Key key}) : super(key: key);
 
   @override
-  _TopTabState createState() => _TopTabState();
+  _TopTabBarState createState() => _TopTabBarState();
 }
 
-class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
+class _TopTabBarState extends State<TopTabBar>
+    with SingleTickerProviderStateMixin {
   TabController _controller;
-
   @override
   void initState() {
     super.initState();
-    _controller = TabController(vsync: this, length: 2);
+    _controller = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[ 
+        children: <Widget>[
+          Expanded(
+              flex: 2,
+              child: Icon(
+                Icons.live_tv,
+                size: 30,
+                color: Colors.white,
+              )),
+          Expanded(
+              flex: 8,
+              child: Container(
+                  height: 50,
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  child: TabBar(
+                      indicatorSize: TabBarIndicatorSize.label,
+                      controller: _controller,
+                      indicatorColor: Colors.white,
+                      labelStyle: TextStyle(color: Colors.white, fontSize: 20),
+                      unselectedLabelStyle:
+                          TextStyle(color: Colors.grey[700], fontSize: 20),
+                      tabs: <Widget>[
+                        Text('关注'),
+                        Text('推荐'),
+                      ]))),
           Expanded(
               flex: 2,
               child: Icon(
@@ -106,34 +160,8 @@ class _TopTabState extends State<TopTab> with SingleTickerProviderStateMixin {
                 size: 30,
                 color: Colors.white,
               )),
-          Expanded(
-              flex: 8,
-              child: Container(
-                height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 50),
-                  child: TabBar(
-                      indicatorColor: Colors.white,
-                      labelStyle: TextStyle(color: Colors.white, fontSize: 20),
-                      unselectedLabelStyle:
-                          TextStyle(color: Colors.grey[700], fontSize: 20),
-                      controller: _controller,
-                      tabs: <Widget>[Text('关注'), Text('推荐')]))),
-          Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Icon(
-                    Icons.live_tv,
-                    size: 30,
-                    color: Colors.white,
-                  )
-                ],
-              )),
         ],
-      )
+      ),
     );
   }
 }
@@ -150,10 +178,18 @@ class BottomBar extends StatelessWidget {
         getBottomWidget('同城', false),
         AddIcon(),
         getBottomWidget('消息', false),
-        getBottomWidget('我', false),
+        getBottomWidget('我的', false),
       ],
     );
   }
+}
+
+Widget getBottomWidget(String text, bool isActive) {
+  return Text(
+    text,
+    style: TextStyle(
+        fontSize: 18, color: isActive ? Colors.white : Colors.grey[300]),
+  );
 }
 
 class AddIcon extends StatelessWidget {
@@ -162,58 +198,74 @@ class AddIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-      height: 35,
-      width: 60,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            height: 35,
-            width: 50,
-            child: Container(
-              decoration: BoxDecoration(color: Colors.cyan, borderRadius: BorderRadius.circular(10)),
-              
+        height: 35,
+        width: 58,
+        // decoration: BoxDecoration(border: Border.all(width: 1)),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              height: 35,
+              width: 50,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.cyan,
+                    borderRadius: BorderRadius.circular(10)),
+              ),
             ),
-          ),
-          Positioned(
-            height: 35,
-            width: 50,
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(color: Colors.redAccent, borderRadius: BorderRadius.circular(10)),
+            Positioned(
+              height: 35,
+              width: 50,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(10)),
+              ),
             ),
-          ),
-          Positioned(
-            height: 35,
-            width: 50,
-            right: 5,
-            child: Container(
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: Icon(Icons.add),
-            ),
-          )
-        ],
-      ),
-    );
+            Positioned(
+              height: 35,
+              width: 50,
+              right: 4,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Icon(Icons.add),
+              ),
+            )
+          ],
+        ));
   }
 }
-getBottomWidget(String content, bool ifSelected) {
-  return Text('$content', style: ifSelected ? TextStyle(fontSize: 18, color: Colors.white) : TextStyle(fontSize: 18, color: Colors.grey[300]),);
-}
 
-class BottomContent extends StatelessWidget {
-  const BottomContent({Key key}) : super(key: key);
+class IntroduceContent extends StatelessWidget {
+  const IntroduceContent({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
-          ListTile(title: Text('@人民日报'),subtitle: Text('卡开发阿拉斯加朵法拉世纪东方拉手孔地方了爱丽丝积分卡书法家阿康师傅是可控的开裆裤那个人鸟儿够热闹'),),
-          Row(children: <Widget>[
-            Icon(Icons.music_note),
-            // Marquee(text: '人民日报创作的一些吧比较弱有啊老师逻辑朵法拉结束了多看看打卡',)
-          ],)
+          ListTile(
+            title: Text(
+              '@唯二',
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Text(
+              '红酥手，黄滕酒，满城春色宫墙柳。东风恶，欢情薄。一怀愁绪，几年离索。错，错，错。春如旧，人空瘦，泪痕红浥鲛绡透。桃花落，闲池阁。山盟虽在，锦书难托。莫，莫，莫。',
+              style: TextStyle(
+                color: Colors.white,
+                height: 1.6
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              SizedBox(width: 18,),
+              Icon(Icons.music_video, color: Colors.white,)],
+          )
         ],
       ),
     );
@@ -227,59 +279,89 @@ class RotateAlbum extends StatefulWidget {
   _RotateAlbumState createState() => _RotateAlbumState();
 }
 
-class _RotateAlbumState extends State<RotateAlbum> with SingleTickerProviderStateMixin {
+class _RotateAlbumState extends State<RotateAlbum>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   var animation;
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
-    animation = RotationTransition(turns: Tween(begin: 0.0, end: 1.0).animate(_controller)..addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.forward(from: 0.0);
-      }     
-    }),child: Icon(Icons.music_note),);
-    // _controller.forward(from: 0.0);
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 4));
+    animation = RotationTransition(
+      turns: Tween(begin: 0.0, end: 1.0).animate(_controller)
+        ..addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            _controller.forward(from: 0.0);
+          }
+        }),
+      child: CircleAvatar(backgroundImage: NetworkImage('https://pic1.zhimg.com/80/v2-5c5a20672ed3bcabd96cca9b42213f1e_720w.jpg'),),
+    );
+    _controller.forward(from: 0.0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: animation,
+      padding: EdgeInsets.all(20),
+      child: animation,
     );
   }
 }
 
-getButtonList() {
-  return Column(children: <Widget>[
-    Container(
-      width: 60,
-      child: Stack(children: <Widget>[
-        CircleAvatar(backgroundImage: NetworkImage('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587746983925&di=6bcb3d87b550e41066c230f8c76c4bb1&imgtype=0&src=http%3A%2F%2Fimg2.woyaogexing.com%2F2019%2F03%2F14%2F1ce2963f747a4159a374c4591d599c3b%2521400x400.jpeg'),),
-        Positioned(bottom: 0, left: 27.5,child: Container(
-          child: Icon(Icons.add),
-          decoration: BoxDecoration(color: Colors.redAccent),
-        ),)
-       ],)
-    ),
-    IconText(text: '999w',icon: Icon(Icons.favorite),)
-  ],);
+getAvatarButton() {
+  return Column(
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.only(bottom: 15),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: 50,
+              width: 50,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587809822699&di=b8161654ccd7110183977316059b51fb&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F6222b2799186b5190cc81d93b3af942b2cdb5cc22f7b6-DsUaEE_fw658'),
+              )
+            ),
+            Positioned(
+              bottom: 0,
+              left: 30,
+              child: Container(
+                child: Icon(Icons.add, size: 13,color: Colors.white,),
+                decoration: BoxDecoration(color: Colors.redAccent),
+              ),
+            )
+          ],
+        ),
+      )
+    ],
+  );
 }
 
 class IconText extends StatelessWidget {
-  final Icon icon;
+  final IconData icon;
   final String text;
-  const IconText({Key key, this.icon, this.text}) : super(key: key);
+  IconText({Key key, this.icon, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-        icon,
-        Text(text)
-      ],),
+    const iconTextColor = Colors.white;
+    double iconSize = 45.0;
+    double textSize = 13.0;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(
+          icon,
+          color: iconTextColor,
+          size: iconSize,
+        ),
+        Text(
+          text,
+          style: TextStyle(color: iconTextColor, fontSize: textSize),
+        )
+      ],
     );
   }
 }
