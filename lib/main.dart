@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'components/Marquee.dart';
+
 void main() {
   runApp(App());
 }
@@ -13,9 +15,7 @@ class App extends StatelessWidget {
       title: '抖嘤',
       home: Scaffold(
         body: Container(
-          decoration: BoxDecoration(color: Colors.grey[800]),
-          child: Home()
-        ),
+            decoration: BoxDecoration(color: Colors.grey[800]), child: Home()),
         bottomNavigationBar: BottomAppBar(
           child: Container(
             height: 65,
@@ -41,9 +41,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    // double rpx = screenWidth / 750;
 
     return Stack(
       children: <Widget>[
+        Positioned(
+            bottom: 0,
+            child: Container(
+                height: 0.8 * screenHeight,
+                width: screenWidth,
+                child: Image(
+                  image:
+                      NetworkImage('https://s1.ax1x.com/2020/04/25/JyFQLd.jpg'),
+                  fit: BoxFit.fitWidth,
+                ))),
         Positioned(
           top: 0,
           // height: 100,
@@ -253,18 +264,32 @@ class IntroduceContent extends StatelessWidget {
             ),
             subtitle: Text(
               '红酥手，黄滕酒，满城春色宫墙柳。东风恶，欢情薄。一怀愁绪，几年离索。错，错，错。春如旧，人空瘦，泪痕红浥鲛绡透。桃花落，闲池阁。山盟虽在，锦书难托。莫，莫，莫。',
-              style: TextStyle(
-                color: Colors.white,
-                height: 1.6
-              ),
+              style: TextStyle(color: Colors.white, height: 1.6),
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
             ),
           ),
           Row(
             children: <Widget>[
-              SizedBox(width: 18,),
-              Icon(Icons.music_video, color: Colors.white,)],
+              SizedBox(
+                width: 18,
+              ),
+              Icon(
+                Icons.music_video,
+                color: Colors.white,
+              ),
+              Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10, right: 30),
+                    child: MarqueeWidget(
+                      child: Text(
+                          '是的发生发阿斯顿发送到发是发生的发生福特人二二二从V型变相逼try头晕乎乎福星高照预付款弄得弄年代末镀膜吗', 
+                          style: TextStyle(color: Colors.white),),
+                      direction: Axis.horizontal,
+                    ),
+                  ))
+            ],
           )
         ],
       ),
@@ -295,9 +320,12 @@ class _RotateAlbumState extends State<RotateAlbum>
             _controller.forward(from: 0.0);
           }
         }),
-      child: CircleAvatar(backgroundImage: NetworkImage('https://pic1.zhimg.com/80/v2-5c5a20672ed3bcabd96cca9b42213f1e_720w.jpg'),),
+      child: CircleAvatar(
+        backgroundImage: NetworkImage(
+            'https://pic1.zhimg.com/80/v2-5c5a20672ed3bcabd96cca9b42213f1e_720w.jpg'),
+      ),
     );
-    _controller.forward(from: 0.0);
+    // _controller.forward(from: 0.0);
   }
 
   @override
@@ -317,18 +345,21 @@ getAvatarButton() {
         child: Stack(
           children: <Widget>[
             Container(
-              height: 50,
-              width: 50,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587809822699&di=b8161654ccd7110183977316059b51fb&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F6222b2799186b5190cc81d93b3af942b2cdb5cc22f7b6-DsUaEE_fw658'),
-              )
-            ),
+                height: 50,
+                width: 50,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587809822699&di=b8161654ccd7110183977316059b51fb&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F6222b2799186b5190cc81d93b3af942b2cdb5cc22f7b6-DsUaEE_fw658'),
+                )),
             Positioned(
               bottom: 0,
               left: 30,
               child: Container(
-                child: Icon(Icons.add, size: 13,color: Colors.white,),
+                child: Icon(
+                  Icons.add,
+                  size: 13,
+                  color: Colors.white,
+                ),
                 decoration: BoxDecoration(color: Colors.redAccent),
               ),
             )
